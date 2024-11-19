@@ -142,8 +142,48 @@ class LinkedList {
         }
     }
 
+    insertAt(value, index){
+        if(index < 0 || index > this.size) {
+            return
+        }
+
+        if(index === 0){
+            this.prepend(value)
+        }else {
+            const node = new Node(value)
+            let prev = this.head
+            for (let i = 0; i < index-1; i++) {
+                prev = prev.next;                
+            }
+            node.next = prev.next;
+            prev.next = node;
+            this.size++;
+        }        
+    }
+
+    removeAt(index){
+        if(index < 0 || index >= this.size) {
+            return null;
+        }
+        let removedNode
+        if (index === 0) {
+            removedNode = this.head;
+            this.head = this.head.next
+        }else {
+            let prev = this.head
+            for(let i = 0; i< index - 1; i++){
+                prev = prev.next;
+            }
+            removedNode = prev.next;
+            prev.next = removedNode.next;
+        }
+        this.size--;
+        return removedNode.value;
+    }
+
 }
 
+//Test
 const list = new LinkedList();
 console.log("Is list empty?", list.isEmpty());
 console.log("Size of the List", list.getSize());
@@ -152,7 +192,10 @@ list.toString();
 list.prepend(10);
 list.toString();
 list.prepend(20);
+list.toString();
 list.prepend(30);
+list.toString();
+list.removeAt(1);
 list.toString();
 list.append(40);
 list.toString();
@@ -160,9 +203,25 @@ list.append(50);
 list.append(60);
 list.toString();
 console.log("Size of the List", list.getSize());
+list.insertAt(11, 0)
+list.toString();
+list.insertAt(21, 1);
+list.toString();
 
-console.log("contains", list.contains(23))
-console.log("find", list.find(60))
+list.insertAt(100, -1)
+list.toString();
+
+list.insertAt(121, 7)
+list.toString();
+
+list.insertAt(61, 2)
+list.toString();
+
+
+
+
+
+
 
 
 
